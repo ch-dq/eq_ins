@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeQuote Connect — Life Insurance, Simplified</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFDF9;
+    --blush: #E8C4B8;
+    --rose: #C87D6B;
+    --deep-rose: #A05540;
+    --charcoal: #2C2420;
+    --muted: #7A6A62;
+    --light-muted: #B8A89E;
+    --sand: #EDE3D8;
+    --gold: #C9A96E;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 5%;
+    background: rgba(250,247,242,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,125,107,0.12);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400; letter-spacing: 0.03em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--rose); font-style: italic; }
+  .nav-links { display: flex; gap: 2.4rem; align-items: center; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-cta {
+    background: var(--rose); color: white !important;
+    padding: 0.6rem 1.4rem; border-radius: 50px;
+    font-weight: 500 !important; letter-spacing: 0.06em !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--deep-rose) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-circle {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,196,184,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-bg-circle.c1 { width: 700px; height: 700px; top: -100px; right: -150px; }
+  .hero-bg-circle.c2 { width: 400px; height: 400px; bottom: 0; left: -100px; background: radial-gradient(circle, rgba(201,169,110,0.15) 0%, transparent 70%); }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 5% 6rem 8%;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--rose);
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 32px; height: 1px; background: var(--rose); display: block;
+  }
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-weight: 300; line-height: 1.08;
+    color: var(--charcoal); margin-bottom: 1.6rem;
+  }
+  .hero-h1 em { font-style: italic; color: var(--rose); }
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300; line-height: 1.7;
+    color: var(--muted); max-width: 440px; margin-bottom: 2.8rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--rose); color: white;
+    padding: 1rem 2.2rem; border-radius: 50px; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.04em; cursor: pointer; text-decoration: none;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 24px rgba(200,125,107,0.28);
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--deep-rose); transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(200,125,107,0.4);
+  }
+  .btn-secondary {
+    background: transparent; color: var(--charcoal);
+    padding: 1rem 2.2rem; border-radius: 50px;
+    border: 1.5px solid rgba(44,36,32,0.2);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 400;
+    letter-spacing: 0.04em; cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--rose); color: var(--rose); }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; padding: 4rem 6% 4rem 2%;
+  }
+  .hero-card {
+    background: var(--warm-white);
+    border-radius: 24px;
+    padding: 2.8rem;
+    box-shadow: 0 24px 64px rgba(44,36,32,0.1), 0 2px 8px rgba(44,36,32,0.05);
+    max-width: 380px; width: 100%;
+    position: relative; z-index: 2;
+    animation: floatCard 4s ease-in-out infinite;
+  }
+  @keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .agent-photo {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--sand);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.4rem;
+    overflow: hidden;
+    border: 3px solid var(--blush);
+  }
+  .agent-photo svg { width: 48px; height: 48px; color: var(--rose); }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600;
+    color: var(--charcoal); margin-bottom: 0.2rem;
+  }
+  .card-title { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 1.6rem; text-transform: uppercase; }
+  .card-stat {
+    background: var(--sand); border-radius: 12px;
+    padding: 1rem 1.2rem; margin-bottom: 0.8rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); }
+  .stat-val { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--deep-rose); }
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(200,125,107,0.1); color: var(--rose);
+    padding: 0.4rem 0.9rem; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 500; margin-top: 0.8rem;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rose); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+  /* ─── TRUST BAR ─── */
+  .trust-bar {
+    background: var(--charcoal); color: white;
+    padding: 1.4rem 5%; display: flex; justify-content: center;
+    gap: 4rem; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--light-muted);
+  }
+  .trust-item svg { color: var(--gold); }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 6rem 8%; }
+  .section-eyebrow {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--rose); margin-bottom: 1rem;
+  }
+  .section-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+    font-weight: 300; line-height: 1.12; color: var(--charcoal);
+    margin-bottom: 1.2rem;
+  }
+  .section-h2 em { font-style: italic; color: var(--rose); }
+  .section-lead {
+    font-size: 1rem; line-height: 1.75; color: var(--muted);
+    max-width: 520px; margin-bottom: 3rem;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how { background: var(--warm-white); }
+  .how-inner { max-width: 1100px; margin: 0 auto; }
+  .how-header { text-align: center; }
+  .how-header .section-lead { margin-left: auto; margin-right: auto; }
+  .steps {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem; margin-top: 3rem;
+  }
+  .step {
+    text-align: center; padding: 2.4rem 1.8rem;
+    background: var(--cream); border-radius: 20px;
+    border: 1px solid rgba(200,125,107,0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .step::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blush), var(--rose));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .step:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44,36,32,0.1); }
+  .step:hover::before { transform: scaleX(1); }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300;
+    color: rgba(200,125,107,0.2); line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .step-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--blush), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.2rem; color: white;
+  }
+  .step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--charcoal);
+    margin-bottom: 0.6rem;
+  }
+  .step p { font-size: 0.88rem; line-height: 1.65; color: var(--muted); }
+
+  /* ─── WHY US ─── */
+  .why { background: var(--cream); }
+  .why-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .why-visual {
+    position: relative; display: flex; justify-content: center; align-items: center;
+  }
+  .why-bg-shape {
+    width: 320px; height: 320px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sand) 0%, var(--blush) 100%);
+    opacity: 0.5;
+  }
+  .why-card-float {
+    position: absolute; background: var(--warm-white);
+    border-radius: 16px; padding: 1.2rem 1.6rem;
+    box-shadow: 0 12px 32px rgba(44,36,32,0.1);
+    font-size: 0.88rem;
+  }
+  .why-card-float.f1 { top: 20px; left: 0; }
+  .why-card-float.f2 { bottom: 20px; right: 0; }
+  .float-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+  .float-val { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--deep-rose); }
+  .float-sub { font-size: 0.75rem; color: var(--muted); }
+
+  .why-list { list-style: none; }
+  .why-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.2rem 0; border-bottom: 1px solid rgba(200,125,107,0.1);
+  }
+  .why-item:last-child { border-bottom: none; }
+  .why-icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    background: rgba(200,125,107,0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rose); margin-top: 0.1rem;
+  }
+  .why-item h4 { font-size: 0.95rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.25rem; }
+  .why-item p { font-size: 0.84rem; line-height: 1.6; color: var(--muted); }
+
+  /* ─── AUDIENCE ─── */
+  .audience { background: var(--charcoal); }
+  .audience-inner { max-width: 1100px; margin: 0 auto; }
+  .audience .section-eyebrow { color: var(--gold); }
+  .audience .section-h2 { color: var(--cream); }
+  .audience .section-lead { color: var(--light-muted); }
+  .audience-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .audience-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px; padding: 2rem;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .audience-card:hover {
+    background: rgba(200,125,107,0.12);
+    border-color: rgba(200,125,107,0.3);
+  }
+  .audience-card svg { color: var(--rose); margin-bottom: 1rem; }
+  .audience-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600; color: var(--cream); margin-bottom: 0.6rem;
+  }
+  .audience-card p { font-size: 0.84rem; line-height: 1.65; color: var(--light-muted); }
+
+  /* ─── QUOTE FORM ─── */
+  .quote-section {
+    background: linear-gradient(135deg, var(--blush) 0%, var(--rose) 50%, var(--deep-rose) 100%);
+    padding: 6rem 8%;
+    position: relative; overflow: hidden;
+  }
+  .quote-section::before {
+    content: '';
+    position: absolute; top: -50%; left: -10%;
+    width: 70%; height: 200%;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%; transform: rotate(-15deg);
+  }
+  .quote-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+  .quote-header { text-align: center; margin-bottom: 3rem; }
+  .quote-header .section-eyebrow { color: rgba(255,255,255,0.7); }
+  .quote-header .section-h2 { color: white; }
+  .quote-header .section-h2 em { color: rgba(255,255,255,0.7); }
+  .quote-header p { color: rgba(255,255,255,0.8); font-size: 1rem; line-height: 1.7; max-width: 500px; margin: 0 auto; }
+
+  .quote-form {
+    background: white; border-radius: 24px;
+    padding: 3rem; box-shadow: 0 32px 80px rgba(44,36,32,0.2);
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-bottom: 1.4rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group.full { grid-column: 1/-1; }
+  .form-group label {
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .form-group input, .form-group select {
+    padding: 0.85rem 1rem;
+    border: 1.5px solid rgba(44,36,32,0.12);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--charcoal);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--rose);
+    background: white;
+  }
+  .form-group input::placeholder { color: var(--light-muted); }
+  .contact-prefs {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.8rem;
+  }
+  .pref-chip {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 1.1rem; border-radius: 50px;
+    border: 1.5px solid rgba(44,36,32,0.12);
+    font-size: 0.82rem; color: var(--muted); cursor: pointer;
+    transition: all 0.2s; user-select: none; background: var(--cream);
+  }
+  .pref-chip input { display: none; }
+  .pref-chip:has(input:checked) {
+    border-color: var(--rose); color: var(--rose);
+    background: rgba(200,125,107,0.08);
+  }
+  .form-disclaimer {
+    font-size: 0.75rem; color: var(--light-muted); line-height: 1.6;
+    margin-bottom: 1.5rem; text-align: center;
+  }
+  .form-submit {
+    width: 100%; padding: 1.1rem;
+    background: var(--rose); color: white; border: none; border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500;
+    cursor: pointer; transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .form-submit:hover { background: var(--deep-rose); transform: translateY(-1px); }
+
+  /* ─── REVENUE / NUMBERS ─── */
+  .numbers { background: var(--warm-white); }
+  .numbers-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+  .numbers .section-lead { margin: 0 auto 3.5rem; }
+  .numbers-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+  .number-card {
+    padding: 2.4rem 1.5rem;
+    border: 1px solid rgba(200,125,107,0.15);
+    border-radius: 20px; background: var(--cream);
+    transition: transform 0.3s;
+  }
+  .number-card:hover { transform: translateY(-4px); }
+  .num-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: var(--deep-rose);
+    line-height: 1; margin-bottom: 0.4rem;
+  }
+  .num-label { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  /* ─── ABOUT EMILY ─── */
+  .about { background: var(--cream); }
+  .about-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: auto 1fr; gap: 5rem; align-items: center;
+  }
+  .emily-photo {
+    width: 220px; height: 280px; border-radius: 20px;
+    background: linear-gradient(145deg, var(--sand), var(--blush));
+    flex-shrink: 0; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rose);
+  }
+  .emily-photo svg { width: 100px; height: 100px; opacity: 0.4; }
+  .emily-photo::after {
+    content: 'Emily Quine';
+    position: absolute; bottom: 1rem; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: var(--charcoal);
+  }
+  .about-text .section-lead { max-width: none; }
+  .about-meta {
+    display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.5rem;
+  }
+  .meta-tag {
+    background: var(--sand); color: var(--muted);
+    padding: 0.4rem 0.9rem; border-radius: 50px;
+    font-size: 0.78rem; letter-spacing: 0.04em;
+  }
+  .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.88rem; color: var(--rose); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--deep-rose); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--charcoal); color: var(--light-muted);
+    padding: 3rem 8%; text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+  .footer-logo span { color: var(--rose); font-style: italic; }
+  footer p { font-size: 0.82rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+  .footer-links a { font-size: 0.8rem; color: var(--light-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--rose); }
+  .footer-bottom { font-size: 0.75rem; color: rgba(255,255,255,0.25); border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: none; }
+
+  /* ─── SUCCESS MESSAGE ─── */
+  .success-msg {
+    display: none; text-align: center; padding: 2rem;
+    background: rgba(200,125,107,0.08); border-radius: 16px;
+    border: 1px solid rgba(200,125,107,0.2);
+  }
+  .success-msg h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;
+    color: var(--deep-rose); margin-bottom: 0.6rem;
+  }
+  .success-msg p { color: var(--muted); font-size: 0.95rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .why-inner { grid-template-columns: 1fr; }
+    .why-visual { display: none; }
+    .about-inner { grid-template-columns: 1fr; }
+    .emily-photo { margin: 0 auto; }
+    .form-grid { grid-template-columns: 1fr; }
+    .trust-bar { gap: 2rem; }
+    nav { padding: 1rem 5%; }
+    .nav-links { display: none; }
+    section { padding: 4rem 5%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">LifeQuote<span>Connect</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#quote" class="nav-cta">Get Your Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-circle c1"></div>
+  <div class="hero-bg-circle c2"></div>
+  <div class="hero-left fade-up">
+    <div class="hero-eyebrow">Life Insurance, Simplified</div>
+    <h1 class="hero-h1">
+      Coverage that fits<br>your life — <em>on your terms</em>
+    </h1>
+    <p class="hero-sub">
+      No spam calls. No pressure. Just a simple, transparent way to explore life insurance options and get the coverage your family deserves.
+    </p>
+    <div class="hero-actions">
+      <a href="#quote" class="btn-primary">Get a Free Quote</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="agent-photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
+        </svg>
+      </div>
+      <div class="card-name">Emily Quine</div>
+      <div class="card-title">Licensed Life Insurance Agent · NPN 22100405</div>
+      <div class="card-stat">
+        <span class="stat-label">Coverage from</span>
+        <span class="stat-val">$20/mo</span>
+      </div>
+      <div class="card-stat">
+        <span class="stat-label">Response time</span>
+        <span class="stat-val">Minutes</span>
+      </div>
+      <div class="card-badge">
+        <span class="badge-dot"></span>
+        Accepting new clients
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    Licensed & Verified
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+    No Unsolicited Calls
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Fast Response
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+    Family-First Approach
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="how-header fade-up">
+      <div class="section-eyebrow">The Process</div>
+      <h2 class="section-h2">Simple steps to <em>real coverage</em></h2>
+      <p class="section-lead">We've replaced confusing paperwork and cold calls with a digital-first experience that respects your time and privacy.</p>
+    </div>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">01</div>
+        <div class="step-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </div>
+        <h3>Answer a Few Questions</h3>
+        <p>Tell us a bit about yourself — age, health, and what you're looking to protect. Takes less than 3 minutes.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">02</div>
+        <div class="step-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3>See Your Options</h3>
+        <p>Receive personalized plan recommendations with estimated monthly costs and coverage amounts — instantly.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">03</div>
+        <div class="step-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </div>
+        <h3>Choose How to Connect</h3>
+        <p>Text, email, or schedule a call — you decide. Phone calls only happen when you want them.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">04</div>
+        <div class="step-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        </div>
+        <h3>Get Covered</h3>
+        <p>Finalize your policy with guidance from Emily — a real licensed agent, not a call center script.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="why-visual fade-up">
+      <div class="why-bg-shape"></div>
+      <div class="why-card-float f1">
+        <div class="float-label">Conversion Rate</div>
+        <div class="float-val">2–3×</div>
+        <div class="float-sub">vs. cold calling</div>
+      </div>
+      <div class="why-card-float f2">
+        <div class="float-label">Avg Response</div>
+        <div class="float-val">&lt; 5 min</div>
+        <div class="float-sub">guaranteed follow-up</div>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="section-eyebrow">Why LifeQuote Connect</div>
+      <h2 class="section-h2">Coverage on <em>your schedule,<br>your terms</em></h2>
+      <p class="section-lead">
+        You already know you need coverage. We just make it easy to finally get it — without the pressure, the confusion, or the calls you never asked for.
+      </p>
+      <ul class="why-list">
+        <li class="why-item">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+          </div>
+          <div>
+            <h4>No calls until you ask for one</h4>
+            <p>Your phone won't ring unless you want it to. Explore your options, get your quote, and reach out on your own terms.</p>
+          </div>
+        </li>
+        <li class="why-item">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </div>
+          <div>
+            <h4>See real prices before you commit</h4>
+            <p>Real estimates, real coverage amounts — shown upfront so you can make an informed decision without talking to anyone first.</p>
+          </div>
+        </li>
+        <li class="why-item">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <h4>Hear back in minutes, not days</h4>
+            <p>Submit your info and you'll get a confirmation right away — followed by a personal response from Emily within minutes.</p>
+          </div>
+        </li>
+        <li class="why-item">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <div>
+            <h4>You're in control, start to finish</h4>
+            <p>Text, email, or schedule a call — you pick how you want to connect. Move as fast or as slow as you need. We'll be here.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="audience" id="audience">
+  <div class="audience-inner">
+    <div class="fade-up" style="text-align: center; margin-bottom: 3rem;">
+      <div class="section-eyebrow">Who We Serve</div>
+      <h2 class="section-h2" style="color: var(--cream); margin-left: auto; margin-right: auto; max-width: 600px;">
+        Built for people who <em style="color: var(--blush);">already know they need coverage</em>
+      </h2>
+      <p class="section-lead" style="color: var(--light-muted); margin: 0 auto;">You've been meaning to get this done. We make it easy to finally check it off the list.</p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card fade-up">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <h3>Young Families</h3>
+        <p>Protect the people who depend on you. Find affordable term coverage that fits your budget without the runaround.</p>
+      </div>
+      <div class="audience-card fade-up">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <h3>Working Professionals</h3>
+        <p>Between 25 and 55, busy, and know you've been putting this off. Get it done in 10 minutes, on your lunch break.</p>
+      </div>
+      <div class="audience-card fade-up">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <h3>Homeowners</h3>
+        <p>A mortgage is a long-term commitment. Make sure your family is protected if the unexpected happens.</p>
+      </div>
+      <div class="audience-card fade-up">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        <h3>First-Time Buyers</h3>
+        <p>Never bought life insurance before? Perfect. We explain everything in plain language — no jargon, no judgment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section class="quote-section" id="quote">
+  <div class="quote-inner">
+    <div class="quote-header fade-up">
+      <div class="section-eyebrow">Start Today</div>
+      <h2 class="section-h2">Get your free quote <em>in minutes</em></h2>
+      <p>No commitment. No spam calls. Just real options — sent your way.</p>
+    </div>
+    <div class="quote-form fade-up" id="quoteForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane" id="firstName">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" id="lastName">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="jane@example.com" id="email">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(602) 555-0100" id="phone">
+        </div>
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" id="dob">
+        </div>
+        <div class="form-group">
+          <label>Coverage Amount</label>
+          <select id="coverage">
+            <option value="">Select amount…</option>
+            <option>$100,000</option>
+            <option>$250,000</option>
+            <option>$500,000</option>
+            <option>$1,000,000+</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom: 1.4rem;">
+        <label>How Would You Like Us to Follow Up?</label>
+        <div class="contact-prefs" style="margin-top: 0.6rem;">
+          <label class="pref-chip"><input type="checkbox" checked> 📱 Text Message</label>
+          <label class="pref-chip"><input type="checkbox"> 📧 Email</label>
+          <label class="pref-chip"><input type="checkbox"> 📞 Schedule a Call</label>
+        </div>
+      </div>
+      <div class="form-disclaimer">
+        By submitting, you agree to be contacted by LifeQuote Connect. We will never sell your information to third parties or initiate unsolicited calls.
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">Get My Free Quote →</button>
+    </div>
+    <div class="success-msg" id="successMsg">
+      <h3>You're all set! 🎉</h3>
+      <p>We've received your request and will follow up via your preferred contact method within minutes. <br>Watch for a confirmation from Emily Quine.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="numbers">
+  <div class="numbers-inner fade-up">
+    <div class="section-eyebrow">By the Numbers</div>
+    <h2 class="section-h2">What <em>real results</em> look like</h2>
+    <p class="section-lead">LifeQuote Connect is designed around performance — for both clients and agents.</p>
+    <div class="numbers-grid">
+      <div class="number-card">
+        <div class="num-val">100+</div>
+        <div class="num-label">Qualified leads per month</div>
+      </div>
+      <div class="number-card">
+        <div class="num-val">20+</div>
+        <div class="num-label">Policies closed monthly</div>
+      </div>
+      <div class="number-card">
+        <div class="num-val">$100</div>
+        <div class="num-label">Average monthly premium</div>
+      </div>
+      <div class="number-card">
+        <div class="num-val">&lt; 5min</div>
+        <div class="num-label">Average response time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="emily-photo fade-up">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="fade-up">
+      <div class="section-eyebrow">Meet Your Agent</div>
+      <h2 class="section-h2">Emily <em>Quine</em></h2>
+      <p class="section-lead">
+        Emily is a licensed life insurance agent who built LifeQuote Connect because she saw firsthand how broken the traditional insurance sales experience had become. Her goal is simple: make it genuinely easy for families to get the protection they need, without the pressure, the cold calls, or the confusion.
+      </p>
+      <p class="section-lead" style="margin-top: -1.5rem;">
+        Arizona-based and nationally focused, Emily brings a personal touch to every interaction — and a commitment to transparency that's rare in the industry.
+      </p>
+      <div class="about-meta">
+        <span class="meta-tag">NPN #22100405</span>
+        <span class="meta-tag">Licensed in Arizona</span>
+        <span class="meta-tag">Expanding Nationwide</span>
+      </div>
+      <div class="contact-links">
+        <a href="tel:6025405906" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          602.540.5906
+        </a>
+        <a href="mailto:emilyquine.insurance@gmail.com" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          emilyquine.insurance@gmail.com
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LifeQuote<span>Connect</span></div>
+  <p>Simple, transparent life insurance for individuals and families.<br>Arizona-based. Nationwide vision.</p>
+  <div class="footer-links">
+    <a href="#how">How It Works</a>
+    <a href="#why">Why Us</a>
+    <a href="#quote">Get a Quote</a>
+    <a href="#about">About Emily</a>
+    <a href="mailto:emilyquine.insurance@gmail.com">Contact</a>
+  </div>
+  <div class="footer-bottom">
+    © 2026 LifeQuote Connect · Emily Quine, Licensed Insurance Agent · NPN #22100405<br>
+    Life insurance products subject to state availability. Not available in all states.
+  </div>
+</footer>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit() {
+    const firstName = document.getElementById('firstName').value;
+    const email = document.getElementById('email').value;
+    if (!firstName || !email) {
+      alert('Please enter your name and email to get your quote.');
+      return;
+    }
+    document.getElementById('quoteForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('quote').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  // Smooth phone formatting
+  const phoneInput = document.getElementById('phone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function(e) {
+      let val = e.target.value.replace(/\D/g, '');
+      if (val.length >= 10) {
+        val = `(${val.slice(0,3)}) ${val.slice(3,6)}-${val.slice(6,10)}`;
+      }
+      e.target.value = val;
+    });
+  }
+</script>
+</body>
+</html>
